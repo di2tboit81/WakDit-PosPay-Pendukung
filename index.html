@@ -17,10 +17,11 @@
 
 body{
     min-height:100vh;
-    height:100vh;
-    overflow:hidden;
+    min-height:100vh;
+    overflow-x:hidden;
+    overflow-y:auto;
     background:
-        linear-gradient(135deg,rgba(3,8,22,.48),rgba(4,18,45,.38)),
+        linear-gradient(135deg,rgba(3,8,22,.20),rgba(4,18,45,.14)),
         radial-gradient(circle at 15% 20%,rgba(255,140,0,.20),transparent 30%),
         radial-gradient(circle at 85% 80%,rgba(0,90,180,.28),transparent 35%),
         url("background.jpg") center center / cover fixed no-repeat,
@@ -32,11 +33,10 @@ body{
 .app{
     max-width:1400px;
     width:100%;
-    height:calc(100vh - 36px);
     min-height:0;
-    overflow:hidden;
+    overflow:visible;
     margin:auto;
-    background:rgba(8,17,42,.72);
+    background:rgba(8,17,42,.55);
     border:1px solid rgba(255,140,0,.35);
     border-radius:24px;
     padding:30px;
@@ -256,7 +256,8 @@ button:active{
 
     body{
         padding:10px;
-        overflow:hidden;
+        overflow-x:hidden;
+        overflow-y:auto;
     }
 
     .header{
@@ -662,396 +663,146 @@ button:active{
 }
 
 
-/* =========================================================
-   WAKDIT FINAL RESPONSIVE - FULL VIEWPORT / NO PAGE SCROLL
-   ========================================================= */
-html,body{
-    width:100%;
-    height:100%;
-    min-width:0;
-    min-height:0;
-    margin:0;
-    padding:0;
-    overflow:hidden !important;
-}
 
+/* ===== WAKDIT REFERENCE LAYOUT ===== */
+html,body{width:100%;min-width:0;min-height:100%;margin:0;}
 body{
-    display:block;
-    background:
-        linear-gradient(135deg,rgba(3,8,22,.34),rgba(4,18,45,.25)),
-        radial-gradient(circle at 15% 20%,rgba(255,140,0,.18),transparent 30%),
-        radial-gradient(circle at 85% 80%,rgba(0,90,180,.24),transparent 35%),
-        url("background.jpg") center center / cover no-repeat,
-        #050817;
+    min-height:100vh;
+    height:auto;
+    padding:20px;
+    overflow-x:hidden;
+    overflow-y:auto !important;
+    background:url("background.jpg") center center / cover no-repeat fixed;
+    background-color:#050817;
 }
-
 .app{
-    width:100vw;
-    max-width:none !important;
-    height:100vh;
-    height:100dvh;
-    min-height:0 !important;
-    margin:0 !important;
-    padding:clamp(10px,2vw,28px);
-    border-radius:0;
-    overflow:hidden !important;
-    display:flex;
-    flex-direction:column;
+    width:min(1100px,calc(100vw - 40px));
+    max-width:1100px;
+    margin:0 auto;
+    padding:24px;
+    border-radius:24px;
+    overflow:visible;
+    background:rgba(5,12,30,.48);
+    border:1px solid rgba(255,140,0,.35);
+    box-shadow:0 0 30px rgba(255,140,0,.12),0 18px 55px rgba(0,0,0,.45);
 }
+body,.app{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.card{background:linear-gradient(145deg,rgba(17,31,65,.86),rgba(7,15,36,.86));}
 
-.header{
-    flex:0 0 auto;
-    margin-bottom:clamp(8px,1.5vh,18px);
-    gap:12px;
-}
-
-.logo{
-    min-width:0;
-    gap:clamp(8px,1.2vw,15px);
-}
-.logo-icon{
-    width:clamp(48px,5vw,78px);
-    height:clamp(48px,5vw,78px);
-    flex:0 0 auto;
-    border-radius:14px;
-}
-.logo-icon img{
-    width:100%;
-    height:100%;
-}
-.logo h1{
-    font-size:clamp(17px,2vw,25px);
-}
-.logo p{
-    font-size:clamp(9px,1vw,13px);
-}
-.status{
-    flex:0 0 auto;
-    padding:clamp(6px,1vw,9px) clamp(9px,1.3vw,16px);
-    font-size:clamp(9px,1vw,13px);
-}
-
-.card{
-    flex:0 0 auto;
-    width:100%;
-    margin-bottom:clamp(7px,1.2vh,14px);
-    padding:clamp(10px,1.4vw,20px);
-    border-radius:16px;
-}
-.card-title{
-    margin-bottom:clamp(7px,1vh,12px);
-    font-size:clamp(12px,1.2vw,16px);
-}
-.number{
-    width:clamp(22px,2vw,28px);
-    height:clamp(22px,2vw,28px);
-    flex:0 0 auto;
-}
-
-.folder-picker-row{
-    gap:8px;
-}
-.folder-select-btn{
-    height:clamp(36px,4.5vh,48px);
-    padding:0 clamp(10px,1.4vw,20px);
-    font-size:clamp(10px,1vw,13px);
-}
-.folder-selected{
-    min-width:0;
-    height:clamp(36px,4.5vh,48px);
-    font-size:clamp(9px,1vw,12px);
-}
-.browser-note{
-    margin-top:6px;
-    font-size:clamp(8px,.9vw,11px);
-}
-
-.actions{
-    width:100%;
-    gap:clamp(8px,1vw,15px);
-}
-.action{
-    min-height:clamp(78px,10vh,110px);
-    padding:clamp(9px,1.2vw,18px);
-    border-radius:15px;
-}
-.action-icon{
-    font-size:clamp(20px,2vw,27px);
-    margin-bottom:5px;
-}
-.action h3{
-    font-size:clamp(11px,1.1vw,14px);
-}
-.action p{
-    font-size:clamp(8px,.9vw,11px);
-    margin-top:3px;
-}
-.action button,
-.action .btn-orange,
-.action .btn-navy{
-    height:clamp(32px,4.5vh,48px);
-    margin-top:clamp(4px,.7vh,8px);
-    font-size:clamp(9px,1vw,13px);
-}
-
-.log{
-    height:clamp(72px,12vh,130px);
-    padding:8px;
-    overflow:hidden !important;
-    font-size:clamp(8px,.9vw,12px);
-}
-
-/* Footer: the TEXT itself pulses/flickers, not just the border. */
+/* Footer: only the text blinks/glows. No moving light column. */
 .footer{
-    flex:0 0 auto;
-    width:min(100%,1100px);
-    align-self:center;
-    margin:clamp(6px,1vh,12px) auto 0;
-    padding:clamp(9px,1.2vh,13px) 12px;
-    min-height:0;
-    border-radius:16px;
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-.footer-text{
     position:relative;
-    z-index:5;
+    width:100%;
+    margin:12px auto 0;
+    padding:8px 0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    overflow:visible;
+    text-align:center;
+}
+.footer::before,.footer::after{display:none!important;content:none!important;}
+.footer-text{
     display:inline-block;
     white-space:nowrap;
-    font-size:clamp(9px,1.15vw,14px);
+    font-size:14px;
     font-weight:900;
-    letter-spacing:clamp(.15px,.05vw,.55px);
+    letter-spacing:.35px;
     animation:wkTextFlicker 2.15s ease-in-out infinite;
 }
 .footer-text .brand-orange{
     color:#ff9d00;
-    animation:wkOrangeFlicker 1.9s ease-in-out infinite;
+    text-shadow:0 0 4px #ff9d00,0 0 10px #ff7a00,0 0 20px rgba(255,140,0,.75);
 }
 .footer-text .brand-blue{
-    color:#78dcff;
-    animation:wkBlueFlicker 2.2s ease-in-out infinite;
+    color:#8be2ff;
+    text-shadow:0 0 4px #45d9ff,0 0 10px #008cff,0 0 20px rgba(0,130,255,.7);
 }
 @keyframes wkTextFlicker{
-    0%,100%{opacity:1;filter:brightness(1);transform:scale(1);}
-    8%{opacity:.72;filter:brightness(.85);}
-    12%{opacity:1;filter:brightness(1.45);}
-    16%{opacity:.82;filter:brightness(1);}
-    20%{opacity:1;filter:brightness(1.65);transform:scale(1.005);}
-    45%{opacity:.94;filter:brightness(1.05);}
-    52%{opacity:1;filter:brightness(1.5);}
-    56%{opacity:.78;filter:brightness(.92);}
-    61%{opacity:1;filter:brightness(1.55);}
-    100%{opacity:1;filter:brightness(1);}
-}
-@keyframes wkOrangeFlicker{
-    0%,100%{text-shadow:0 0 4px #ff9d00,0 0 10px rgba(255,100,0,.55),0 0 20px rgba(255,140,0,.35);}
-    22%{text-shadow:0 0 7px #fff2b0,0 0 16px #ff9d00,0 0 30px rgba(255,90,0,.8);}
-    27%{text-shadow:0 0 2px #ff9d00,0 0 5px rgba(255,100,0,.35);}
-    50%{text-shadow:0 0 8px #ffd36b,0 0 18px #ff8500,0 0 34px rgba(255,100,0,.8);}
-    56%{text-shadow:0 0 4px #ff9d00,0 0 10px rgba(255,100,0,.55);}
-}
-@keyframes wkBlueFlicker{
-    0%,100%{text-shadow:0 0 4px #6bdcff,0 0 10px rgba(0,150,255,.55),0 0 20px rgba(0,100,255,.35);}
-    32%{text-shadow:0 0 8px #d7f7ff,0 0 18px #16bfff,0 0 34px rgba(0,100,255,.85);}
-    38%{text-shadow:0 0 2px #6bdcff,0 0 5px rgba(0,120,255,.3);}
-    70%{text-shadow:0 0 8px #d7f7ff,0 0 18px #00aaff,0 0 34px rgba(0,100,255,.8);}
+    0%,100%{opacity:1;filter:brightness(1);}
+    12%{opacity:.78;filter:brightness(1.08);}
+    20%{opacity:1;filter:brightness(1.7);}
+    27%{opacity:.86;filter:brightness(1.15);}
+    36%{opacity:1;filter:brightness(1.95);}
+    48%{opacity:.82;filter:brightness(1.05);}
+    60%{opacity:1;filter:brightness(1.65);}
+    74%{opacity:.9;filter:brightness(1.2);}
+    86%{opacity:1;filter:brightness(1.85);}
 }
 
-/* Decorative light sweeps remain subtle; the text is the main effect. */
-.footer::before{
-    z-index:1;
-    width:22%;
-    left:-28%;
-    animation:wkFooterSweep 4.2s linear infinite;
-}
-.footer::after{
-    z-index:2;
-}
-@keyframes wkFooterSweep{
-    0%{left:-28%;opacity:0;}
-    8%{opacity:.9;}
-    45%{opacity:1;}
-    55%{opacity:.9;}
-    100%{left:120%;opacity:0;}
-}
-
-/* LAPTOP / TABLET */
+/* Keep the reference proportions on desktop/tablet. */
 @media (max-width:900px){
-    body{background-position:center center;}
-    .app{padding:10px;}
-    .header{margin-bottom:8px;}
-    .card{margin-bottom:7px;}
+    body{padding:14px;}
+    .app{width:min(100%,1100px);padding:18px;}
 }
 
-/* PHONE: keep everything on one viewport and avoid a second page scrollbar. */
+/* Phone: compact without creating a second page scrollbar. */
 @media (max-width:600px){
-    .app{
-        padding:7px;
-        border-radius:0;
-    }
-    .header{
-        flex-direction:row;
-        align-items:center;
-        justify-content:space-between;
-        gap:7px;
-    }
-    .logo{gap:7px;}
-    .logo-icon{
-        width:48px;
-        height:48px;
-        border-radius:11px;
-    }
-    .logo h1{font-size:15px;}
+    body{padding:8px;overflow-x:hidden;overflow-y:auto !important;}
+    .app{width:100%;padding:10px;border-radius:16px;}
+    .header{margin-bottom:10px;gap:7px;}
+    .logo{gap:7px;min-width:0;}
+    .logo-icon{width:50px;height:50px;border-radius:11px;flex:0 0 50px;}
+    .logo-icon img{width:47px;height:47px;}
+    .logo h1{font-size:16px;line-height:1.05;}
     .logo p{font-size:8px;}
-    .status{
-        padding:5px 8px;
-        font-size:8px;
-    }
-
-    .card{
-        padding:8px;
-        margin-bottom:6px;
-        border-radius:13px;
-    }
-    .card-title{
-        margin-bottom:6px;
-        font-size:11px;
-    }
-    .number{
-        width:20px;
-        height:20px;
-        border-radius:6px;
-        font-size:9px;
-    }
-
-    .actions{
-        grid-template-columns:repeat(2,1fr) !important;
-        gap:6px;
-    }
-    .action{
-        min-height:72px;
-        padding:7px 5px;
-        border-radius:11px;
-    }
+    .status{padding:5px 8px;font-size:8px;white-space:nowrap;}
+    .card{padding:9px;margin-bottom:7px;border-radius:13px;}
+    .card-title{font-size:12px;margin-bottom:6px;}
+    .folder-picker-row{gap:5px;}
+    .folder-select-btn{height:38px;padding:0 9px;font-size:9px;}
+    .folder-selected{height:38px;min-width:0;font-size:8px;padding:0 7px;}
+    .actions{grid-template-columns:1fr 1fr;gap:7px;}
+    .action{min-height:78px;padding:7px 5px;border-radius:11px;}
     .action-icon{font-size:19px;margin-bottom:2px;}
     .action h3{font-size:10px;}
     .action p{font-size:7px;margin-top:2px;}
-    .action button,
-    .action .btn-orange,
-    .action .btn-navy{
-        height:29px;
-        padding:0 7px;
-        margin-top:3px;
-        border-radius:8px;
-        font-size:8px;
-    }
-
-    .log{
-        height:62px;
-        padding:5px;
-        font-size:7px;
-    }
-    .footer{
-        margin-top:5px;
-        padding:8px 5px;
-        border-radius:11px;
-    }
-    .footer-text{
-        font-size:8px;
-        letter-spacing:0;
-    }
+    .action button,.action .btn-orange,.action .btn-navy{height:29px;padding:0 7px;margin-top:3px;font-size:8px;}
+    .log{height:62px;padding:5px;font-size:7px;overflow:hidden;}
+    .footer{margin-top:5px;padding:6px 0;}
+    .footer-text{font-size:8px;letter-spacing:0;}
 }
-
-/* VERY SHORT DEVICES */
 @media (max-height:650px){
-    .app{padding:6px;}
-    .header{margin-bottom:5px;}
-    .logo-icon{width:44px;height:44px;}
-    .card{padding:7px;margin-bottom:5px;}
-    .action{min-height:65px;padding:5px;}
-    .log{height:52px;}
-    .footer{margin-top:4px;padding:6px;}
+    .app{padding:12px 18px;}
+    .header{margin-bottom:8px;}
+    .card{padding:10px;margin-bottom:7px;}
+    .action{min-height:76px;}
+    .log{height:60px;}
+    .footer{margin-top:4px;padding:5px 0;}
 }
 
-
-/* ===== FINAL DISPLAY OVERRIDE: TRUE FULL SCREEN / NO PAGE SCROLL ===== */
-html,body{width:100%;height:100%;overflow:hidden;}
-body{padding:0!important;min-height:100vh;height:100dvh;}
+/* ===== FINAL SCROLL FIX ===== */
+html{
+    min-height:100%;
+    height:auto;
+    overflow-x:hidden;
+    overflow-y:auto !important;
+}
+body{
+    min-height:100vh;
+    height:auto !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+}
 .app{
-  width:100%!important;
-  max-width:none!important;
-  height:100vh!important;
-  height:100dvh!important;
-  min-height:0!important;
-  margin:0!important;
-  padding:28px 30px 14px!important;
-  border-radius:0!important;
-  overflow:hidden!important;
+    height:auto !important;
+    min-height:0 !important;
+    overflow:visible !important;
 }
-/* Keep the same wide desktop composition as the reference image. */
-.header{margin-bottom:22px!important;}
-.card{margin-bottom:14px!important;padding:18px!important;}
-.actions{gap:14px!important;}
-.footer{
-  margin:8px 0 0!important;
-  padding:6px 0!important;
-  min-height:0!important;
-  height:auto!important;
-  border:0!important;
-  border-radius:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-  overflow:visible!important;
+
+
+/* ===== BACKGROUND FINAL: tampil lebih utuh, tidak terlalu diperbesar ===== */
+html{
+    background:#050817;
 }
-.footer::before,.footer::after{display:none!important;content:none!important;}
-.footer-text{
-  display:inline-block!important;
-  white-space:nowrap!important;
-  animation:footerTextBlink 1.65s ease-in-out infinite!important;
-}
-.footer-text .brand-orange{
-  color:#ff9d00!important;
-  text-shadow:0 0 4px #ff9d00,0 0 10px #ff7a00,0 0 20px rgba(255,140,0,.75)!important;
-}
-.footer-text .brand-blue{
-  color:#8be2ff!important;
-  text-shadow:0 0 4px #45d9ff,0 0 10px #008cff,0 0 20px rgba(0,130,255,.7)!important;
-}
-@keyframes footerTextBlink{
-  0%,100%{opacity:1;filter:brightness(1);}
-  12%{opacity:.78;filter:brightness(1.08);}
-  20%{opacity:1;filter:brightness(1.7);}
-  27%{opacity:.86;filter:brightness(1.15);}
-  36%{opacity:1;filter:brightness(1.95);}
-  48%{opacity:.82;filter:brightness(1.05);}
-  60%{opacity:1;filter:brightness(1.65);}
-  74%{opacity:.9;filter:brightness(1.2);}
-  86%{opacity:1;filter:brightness(1.85);}
-}
-/* Phone/tablet: compact the existing layout, but never create a second page scroll. */
-@media (max-width:750px){
-  .app{padding:12px 10px 8px!important;}
-  .header{flex-direction:row!important;align-items:center!important;gap:8px!important;margin-bottom:10px!important;}
-  .logo{gap:8px!important;min-width:0;}
-  .logo-icon{width:52px!important;height:52px!important;border-radius:12px!important;flex:0 0 52px;}
-  .logo-icon img{width:49px!important;height:49px!important;}
-  .logo h1{font-size:18px!important;line-height:1.05!important;}
-  .logo p{font-size:9px!important;margin-top:2px!important;}
-  .status{font-size:9px!important;padding:6px 9px!important;white-space:nowrap;}
-  .card{padding:11px!important;margin-bottom:8px!important;border-radius:12px!important;}
-  .card-title{font-size:13px!important;margin-bottom:7px!important;}
-  .folder-picker-row{gap:6px!important;flex-wrap:nowrap!important;}
-  .folder-select-btn{height:38px!important;padding:0 10px!important;font-size:10px!important;}
-  .folder-selected{height:38px!important;min-width:0!important;font-size:9px!important;padding:0 8px!important;}
-  .actions{grid-template-columns:1fr 1fr!important;gap:8px!important;}
-  .action-card{min-height:110px!important;padding:10px!important;}
-  .action-card h3{font-size:12px!important;}
-  .action-card p{font-size:9px!important;}
-  .action-card button{height:34px!important;font-size:10px!important;}
-  .log{min-height:72px!important;max-height:110px!important;}
-  .footer{font-size:10px!important;margin-top:4px!important;}
+body{
+    background-image:url("background.jpg") !important;
+    background-repeat:no-repeat !important;
+    background-position:center top !important;
+    background-size:100% 100% !important;
+    background-attachment:fixed !important;
+    background-color:#050817 !important;
 }
 
 </style>
