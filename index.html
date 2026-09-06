@@ -1,0 +1,1109 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Folder Manager</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Segoe UI,Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255,140,0,.18), transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(0,70,150,.25), transparent 35%),
+        linear-gradient(135deg,#050817,#07152f 55%,#09091c);
+    color:white;
+    padding:35px;
+}
+
+.app{
+    max-width:1050px;
+    margin:auto;
+    background:rgba(8,17,42,.88);
+    border:1px solid rgba(255,140,0,.35);
+    border-radius:24px;
+    padding:30px;
+    box-shadow:
+        0 0 25px rgba(255,140,0,.15),
+        0 25px 70px rgba(0,0,0,.55);
+}
+
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:28px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.logo-icon{
+    width:58px;
+    height:58px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    font-weight:bold;
+    background:linear-gradient(145deg,#ff9d00,#d85f00);
+    box-shadow:
+        0 0 20px rgba(255,140,0,.65),
+        inset 0 2px 4px rgba(255,255,255,.3);
+}
+
+.logo h1{
+    font-size:25px;
+    letter-spacing:.5px;
+}
+
+.logo p{
+    color:#9faaca;
+    margin-top:3px;
+    font-size:13px;
+}
+
+.status{
+    padding:9px 16px;
+    border-radius:30px;
+    background:#071c32;
+    border:1px solid #1686b8;
+    color:#6bdcff;
+    box-shadow:0 0 15px rgba(0,200,255,.2);
+    font-size:13px;
+}
+
+/* CARD */
+
+.card{
+    background:
+        linear-gradient(145deg,rgba(17,31,65,.96),rgba(7,15,36,.96));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:20px;
+    box-shadow:
+        0 12px 25px rgba(0,0,0,.35),
+        inset 0 1px rgba(255,255,255,.08);
+}
+
+.card-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:16px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.number{
+    width:28px;
+    height:28px;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#ff8500;
+    box-shadow:0 0 13px rgba(255,140,0,.6);
+    font-size:13px;
+}
+
+/* ACTION */
+
+.actions{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.action{
+    min-height:110px;
+    border-radius:17px;
+    padding:18px;
+    text-align:center;
+    background:linear-gradient(145deg,#101f43,#07122d);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:
+        0 10px 20px rgba(0,0,0,.35),
+        inset 0 1px rgba(255,255,255,.07);
+}
+
+.action-icon{
+    font-size:27px;
+    margin-bottom:9px;
+}
+
+.action h3{
+    font-size:14px;
+}
+
+.action p{
+    color:#7f8daa;
+    font-size:11px;
+    margin-top:5px;
+}
+
+/* BUTTON */
+
+button{
+    border:none;
+    cursor:pointer;
+    color:white;
+    font-weight:bold;
+    letter-spacing:.4px;
+    border-radius:12px;
+    padding:0 22px;
+    height:48px;
+    transition:.2s;
+}
+
+button:active{
+    transform:translateY(3px);
+    box-shadow:none!important;
+}
+
+.btn-orange{
+    background:linear-gradient(145deg,#ff9d00,#d85f00);
+    box-shadow:
+        0 6px 0 #743300,
+        0 0 20px rgba(255,140,0,.45);
+}
+
+.btn-orange:hover{
+    box-shadow:
+        0 6px 0 #743300,
+        0 0 30px rgba(255,140,0,.75);
+}
+
+.btn-navy{
+    background:linear-gradient(145deg,#164a86,#092b5b);
+    box-shadow:
+        0 6px 0 #041a39,
+        0 0 18px rgba(0,100,220,.35);
+}
+
+.btn-navy:hover{
+    box-shadow:
+        0 6px 0 #041a39,
+        0 0 28px rgba(0,130,255,.6);
+}
+
+/* LOG */
+
+.log{
+    background:#030916;
+    border:1px solid #16294b;
+    border-radius:14px;
+    height:130px;
+    padding:14px;
+    overflow:auto;
+    font-family:Consolas,monospace;
+    font-size:12px;
+    color:#91a7c8;
+    text-align:center;
+}
+
+.log .ok{
+    color:#6cffc4;
+}
+
+.log .orange{
+    color:#ffad3d;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    color:#64728f;
+    font-size:11px;
+    margin-top:20px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:750px){
+
+    body{
+        padding:15px;
+    }
+
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .actions{
+        grid-template-columns:1fr;
+    }
+
+}
+
+/* CUSTOM FOLDER PICKER */
+.folder-picker-row{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+.folder-select-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    height:48px;
+    padding:0 20px;
+    border:1px solid rgba(255,157,0,.55);
+    border-radius:12px;
+    color:#fff;
+    font-weight:700;
+    letter-spacing:.3px;
+    cursor:pointer;
+    background:linear-gradient(145deg,#ff9d00,#d85f00);
+    box-shadow:0 5px 0 #743300,0 0 22px rgba(255,140,0,.35);
+    transition:.2s;
+}
+.folder-select-btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 6px 0 #743300,0 0 32px rgba(255,140,0,.7);
+}
+.folder-select-btn:active{
+    transform:translateY(3px);
+    box-shadow:0 2px 0 #743300;
+}
+.folder-selected{
+    flex:1;
+    min-width:240px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    padding:0 15px;
+    border-radius:12px;
+    background:linear-gradient(145deg,#08152f,#030916);
+    border:1px solid #17345c;
+    color:#91a7c8;
+    font-family:Consolas,monospace;
+    font-size:12px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.copy-ok{
+    color:#6cffc4!important;
+}
+
+.folder-selected.ready{
+    border-color:rgba(108,255,196,.45);
+    color:#6cffc4;
+    box-shadow:0 0 18px rgba(108,255,196,.08);
+}
+.hidden-folder-input{
+    position:absolute!important;
+    width:1px!important;
+    height:1px!important;
+    opacity:0!important;
+    pointer-events:none!important;
+}
+.browser-note{
+    margin-top:10px;
+    color:#64728f;
+    font-size:11px;
+}
+
+
+/* MODAL HASIL DOWNLOAD */
+.hasil-modal{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,4,15,.78);
+    backdrop-filter:blur(8px);
+}
+.hasil-modal-box{
+    width:min(520px,94vw);
+    padding:30px;
+    border-radius:22px;
+    text-align:center;
+    background:linear-gradient(145deg,#111f43,#050c20);
+    border:1px solid rgba(255,157,0,.42);
+    box-shadow:0 0 35px rgba(255,140,0,.22),0 25px 70px rgba(0,0,0,.7);
+    animation:hasilPop .22s ease-out;
+}
+@keyframes hasilPop{
+    from{opacity:0;transform:translateY(12px) scale(.97)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+}
+.hasil-modal-icon{
+    font-size:48px;
+    margin-bottom:10px;
+    filter:drop-shadow(0 0 15px rgba(255,157,0,.55));
+}
+.hasil-modal-title{
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:.6px;
+}
+.hasil-modal-subtitle{
+    margin-top:7px;
+    color:#9faaca;
+    font-size:13px;
+}
+.hasil-modal-path{
+    margin-top:16px;
+    padding:13px 15px;
+    border-radius:12px;
+    background:#030916;
+    border:1px solid #18345c;
+    color:#6cffc4;
+    font-family:Consolas,monospace;
+    font-size:13px;
+    word-break:break-word;
+}
+.hasil-modal-location{
+    margin-top:12px;
+    padding:12px;
+    border-radius:12px;
+    background:rgba(255,255,255,.035);
+    color:#ffad3d;
+    font-size:13px;
+}
+
+.hasil-file-item{
+    padding:2px 0;
+}
+.hasil-file-item::before{
+    content:"✓ ";
+    color:#6cffc4;
+}
+
+.hasil-modal-actions{
+    margin-top:20px;
+}
+.hasil-modal-note{
+    margin-top:14px;
+    color:#64728f;
+    font-size:10px;
+    line-height:1.6;
+}
+
+
+/* KONFIRMASI FILE / FOLDER SAMA */
+.confirm-modal{
+    position:fixed;
+    inset:0;
+    z-index:10000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,4,15,.82);
+    backdrop-filter:blur(9px);
+}
+.confirm-box{
+    width:min(500px,94vw);
+    padding:30px;
+    border-radius:22px;
+    text-align:center;
+    background:linear-gradient(145deg,#111f43,#050c20);
+    border:1px solid rgba(255,157,0,.48);
+    box-shadow:0 0 40px rgba(255,140,0,.25),0 25px 70px rgba(0,0,0,.75);
+    animation:hasilPop .22s ease-out;
+}
+.confirm-icon{
+    font-size:50px;
+    margin-bottom:10px;
+    filter:drop-shadow(0 0 16px rgba(255,157,0,.6));
+}
+.confirm-title{
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:.5px;
+}
+.confirm-text{
+    margin-top:9px;
+    color:#9faaca;
+    font-size:13px;
+    line-height:1.6;
+}
+.confirm-path{
+    margin-top:15px;
+    padding:12px 14px;
+    border-radius:12px;
+    background:#030916;
+    border:1px solid #18345c;
+    color:#ffad3d;
+    font-family:Consolas,monospace;
+    font-size:12px;
+    word-break:break-word;
+}
+.confirm-actions{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-top:20px;
+}
+.confirm-actions button{
+    min-width:120px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                WD
+            </div>
+
+            <div>
+
+                <h1>File PosPay Pendukung</h1>
+
+                <p>
+                    Download & Manage Files
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="status">
+            ● READY
+        </div>
+
+    </div>
+
+    <!-- SUMBER GITHUB DISEMBUNYIKAN -->
+
+    <!-- FOLDER TUJUAN -->
+
+    <div class="card">
+
+        <div class="card-title">
+
+            <div class="number">
+                1
+            </div>
+
+            FOLDER TUJUAN
+
+        </div>
+
+        <div style="
+            color:#9faaca;
+            font-size:13px;
+            line-height:1.7;
+            margin-bottom:14px;
+        ">
+            Tentukan folder tujuan sebelum
+            <strong style="color:#6bdcff;">DOWNLOAD</strong>.
+            Pilihannya dibuat khusus agar tampil tetap menyatu dengan aplikasi.
+        </div>
+
+        <div class="folder-picker-row">
+            <button type="button" class="folder-select-btn" onclick="bukaPemilihFolder()">
+                📁 &nbsp; PILIH FOLDER TUJUAN
+            </button>
+
+            <div id="folderInfo" class="folder-selected">
+                Belum ada folder yang dipilih
+            </div>
+        </div>
+<input id="folderInput"
+               class="hidden-folder-input"
+               type="file"
+               webkitdirectory
+               directory
+               multiple
+               onchange="folderFallbackDipilih(this)">
+
+        <div class="browser-note">
+            Pilihan folder didukung di browser modern. Metode penyimpanan mengikuti kemampuan browser.
+        </div>
+
+    </div>
+
+
+    <!-- ACTION -->
+
+    <div class="card">
+
+        <div class="card-title">
+
+            <div class="number">
+                2
+            </div>
+
+            AKSI
+
+        </div>
+
+
+        <div class="actions">
+
+
+            <div class="action">
+
+                <div class="action-icon">
+                    ⬇️
+                </div>
+
+                <h3>
+                    DOWNLOAD
+                </h3>
+
+                <p>
+                    Download PoasPay Pendukung
+                </p>
+
+                <br>
+
+                <button
+                    class="btn-orange"
+                    onclick="downloadFile()">
+
+                    DOWNLOAD
+
+                </button>
+
+            </div>
+<div class="action">
+
+                <div class="action-icon">
+                    🔄
+                </div>
+
+                <h3>
+                    REFRESH
+                </h3>
+
+                <p>
+                    Perbarui informasi
+                </p>
+
+                <br>
+
+                <button
+                    class="btn-navy"
+                    onclick="refreshApp()">
+
+                    REFRESH
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- LOG -->
+
+    <div class="card">
+
+        <div class="card-title">
+
+            <div class="number">
+                3
+            </div>
+
+            LOG AKTIVITAS
+
+        </div>
+
+
+        <div class="log" id="log">
+
+            <div class="ok">
+                [READY] Aplikasi siap digunakan.
+            </div>
+
+            <div>
+                [INFO] Sumber PosPay akan diatur melalui kode.
+            </div>
+
+            <div>
+                [INFO] Folder tujuan dipilih saat DOWNLOAD.
+            </div>
+
+        </div>
+
+        <div id="hasilFolderBox" style="display:none; margin-top:15px; text-align:center;">
+            <button class="btn-orange" onclick="lihatFolderHasil()">
+                📂 LIHAT FILE HASIL DOWNLOAD
+            </button>
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+
+        Power By WakDit B@-it | @2026 | KCU BATAM 29400
+
+    </div>
+
+</div>
+
+
+<script>
+function tulisLog(text, cls){
+    var log=document.getElementById("log");
+    var div=document.createElement("div");
+    if(cls){div.className=cls;}
+    div.textContent=text;
+    log.appendChild(div);
+    log.scrollTop=log.scrollHeight;
+    simpanSesi();
+}
+
+var GH_API="https://api.github.com/repos/di2tboit81/POSPAY-PENDUKUNG/git/trees/main?recursive=1";
+var GH_RAW="https://raw.githubusercontent.com/di2tboit81/POSPAY-PENDUKUNG/main/";
+var GH_FOLDER="locales";
+var folderTujuan=null;
+var folderNama="";
+var downloadSedangBerjalan=false;
+var fileBerhasil=[];
+
+function tampilkanFolder(nama){
+    folderNama=nama || "";
+    var info=document.getElementById("folderInfo");
+
+    if(folderNama){
+        info.textContent="📁  "+folderNama+"\\locales";
+        info.classList.add("ready");
+    }else{
+        info.textContent="Belum ada folder yang dipilih";
+        info.classList.remove("ready");
+    }
+}
+/*
+ * Chrome / Edge / browser yang mendukung File System Access API:
+ * dapat memilih folder sebenarnya dan menyimpan langsung ke folder tersebut.
+ *
+ * Firefox dan browser lain:
+ * memakai input directory standar. Ini membuat pemilihan folder tetap
+ * bisa dilakukan, tetapi browser tidak memberikan izin HTML biasa untuk
+ * menulis file arbitrary ke folder tersebut.
+ */
+async function bukaPemilihFolder(){
+    try{
+        if(window.showDirectoryPicker){
+            /*
+             * Izin tulis diminta SEKALI saat folder dipilih.
+             * Handle ini kemudian dipakai langsung saat DOWNLOAD,
+             * sehingga aplikasi tidak meminta izin tulis lagi.
+             */
+            folderTujuan=await window.showDirectoryPicker({mode:"readwrite"});
+            tampilkanFolder(folderTujuan.name);
+            tulisLog("[OK] Folder tujuan dipilih: "+folderTujuan.name,"ok");
+            return;
+        }
+
+        var input=document.getElementById("folderInput");
+        input.value="";
+        input.click();
+    }catch(e){
+        if(e && e.name==="AbortError"){
+            tulisLog("[INFO] Pemilihan folder dibatalkan.","orange");
+            return;
+        }
+        tulisLog("[ERROR] "+e.message,"orange");
+    }
+}
+
+function folderFallbackDipilih(input){
+    if(!input.files || !input.files.length){
+        return;
+    }
+
+    var first=input.files[0];
+    var relative=first.webkitRelativePath || "";
+    var nama=relative.split("/")[0] || "Folder terpilih";
+
+    // Simpan nama untuk tampilan. Browser tidak memberikan handle tulis.
+    folderTujuan=null;
+    folderNama=nama;
+    tampilkanFolder(nama);
+
+    tulisLog("[OK] Folder tujuan dipilih: "+nama,"ok");
+    tulisLog("[INFO] Browser ini menggunakan mode download browser.","orange");
+}
+
+async function buatFolder(root, path){
+    if(!path){return root;}
+    var parts=path.split("/");
+    var current=root;
+
+    for(var i=0;i<parts.length;i++){
+        if(parts[i]){
+            current=await current.getDirectoryHandle(parts[i],{create:true});
+        }
+    }
+    return current;
+}
+
+async function simpanFile(root, githubPath, blob){
+    var relative=githubPath.substring(GH_FOLDER.length+1);
+    var parts=relative.split("/");
+    var filename=parts.pop();
+    var parent=await buatFolder(root,parts.join("/"));
+    var fh=await parent.getFileHandle(filename,{create:true});
+    var writable=await fh.createWritable();
+    await writable.write(blob);
+    await writable.close();
+}
+
+
+var konfirmasiResolve=null;
+
+function mintaKonfirmasi(path){
+    return new Promise(function(resolve){
+        konfirmasiResolve=resolve;
+        document.getElementById("confirmPath").textContent=path || "Folder locales";
+        document.getElementById("confirmModal").style.display="flex";
+    });
+}
+
+function jawabKonfirmasi(lanjut){
+    document.getElementById("confirmModal").style.display="none";
+    if(konfirmasiResolve){
+        var resolve=konfirmasiResolve;
+        konfirmasiResolve=null;
+        resolve(lanjut);
+    }
+}
+
+async function cekFileSudahAda(folder, relativePaths){
+    var ada=[];
+    for(var i=0;i<relativePaths.length;i++){
+        var parts=relativePaths[i].split("/");
+        var name=parts.pop();
+        var current=folder;
+        try{
+            for(var j=0;j<parts.length;j++){
+                if(parts[j]){
+                    current=await current.getDirectoryHandle(parts[j],{create:false});
+                }
+            }
+            await current.getFileHandle(name,{create:false});
+            ada.push(relativePaths[i]);
+        }catch(e){
+            // Tidak ada file = lanjut.
+        }
+    }
+    return ada;
+}
+
+async function downloadFile(){
+    if(downloadSedangBerjalan){return;}
+
+    try{
+        downloadSedangBerjalan=true;
+        fileBerhasil=[];
+        document.getElementById("hasilFolderBox").style.display="none";
+
+        // Bila belum memilih folder, minta memilih terlebih dahulu.
+        if(!folderNama && !folderTujuan){
+            tulisLog("[INFO] Pilih FOLDER TUJUAN terlebih dahulu.","orange");
+            await bukaPemilihFolder();
+
+            if(!folderNama && !folderTujuan){
+                return;
+            }
+        }
+
+        tulisLog("[INFO] Membaca isi GitHub /locales ...","orange");
+
+        var r=await fetch(GH_API,{headers:{"Accept":"application/vnd.github+json"}});
+        if(!r.ok){throw new Error("GitHub HTTP "+r.status);}
+
+        var data=await r.json();
+        var files=[];
+
+        for(var i=0;i<data.tree.length;i++){
+            var item=data.tree[i];
+            if(item.type==="blob" && item.path.indexOf(GH_FOLDER+"/")===0){
+                files.push(item.path);
+            }
+        }
+
+        if(!files.length){
+            throw new Error("Tidak ada file ditemukan di folder locales.");
+        }
+
+        tulisLog("[OK] Ditemukan "+files.length+" file.","ok");
+
+        /*
+         * Mode langsung: Chrome/Edge dan browser lain yang menyediakan
+         * showDirectoryPicker.
+         */
+        if(folderTujuan){
+            var locales=await folderTujuan.getDirectoryHandle(GH_FOLDER,{create:true});
+
+            // Cek file yang sama sebelum download agar pengguna mendapat konfirmasi.
+            var relativePaths=files.map(function(p){return p.substring(GH_FOLDER.length+1);});
+            var fileSama=await cekFileSudahAda(locales,relativePaths);
+
+            if(fileSama.length){
+                var tampilSama=fileSama.length<=8 ? fileSama.join("\n") :
+                    fileSama.slice(0,8).join("\n")+"\n... dan "+(fileSama.length-8)+" file lainnya";
+                var lanjut=await mintaKonfirmasi(tampilSama);
+                if(!lanjut){
+                    tulisLog("[INFO] Download dibatalkan karena file/folder sudah ada.","orange");
+                    document.querySelector(".status").textContent="● READY";
+                    return;
+                }
+                tulisLog("[INFO] Konfirmasi diterima. File yang sama akan diganti.","orange");
+            }
+
+            for(var n=0;n<files.length;n++){
+                var path=files[n];
+                tulisLog("[DOWNLOAD] "+path,"orange");
+
+                var fr=await fetch(GH_RAW+path);
+                if(!fr.ok){
+                    tulisLog("[ERROR] "+path+" HTTP "+fr.status,"orange");
+                    continue;
+                }
+
+                await simpanFile(locales,path,await fr.blob());
+                fileBerhasil.push(path.substring(GH_FOLDER.length+1));
+                simpanSesi();
+                document.querySelector(".status").textContent="● "+(n+1)+" / "+files.length;
+            }
+
+            document.querySelector(".status").textContent="● SELESAI";
+            tulisLog("[OK] SEMUA FILE SELESAI DI "+folderNama,"ok");
+            document.getElementById("hasilFolderBox").style.display="block";
+            return;
+        }
+
+        /*
+         * Fallback Firefox / browser tanpa File System Access API.
+         * File diunduh satu per satu memakai mekanisme download browser.
+         * Struktur folder tidak dapat dipaksa oleh HTML biasa.
+         */
+        tulisLog("[INFO] Mode browser aktif. File akan masuk ke lokasi download browser.","orange");
+
+        for(var j=0;j<files.length;j++){
+            var filePath=files[j];
+            tulisLog("[DOWNLOAD] "+filePath,"orange");
+
+            var response=await fetch(GH_RAW+filePath);
+            if(!response.ok){
+                tulisLog("[ERROR] "+filePath+" HTTP "+response.status,"orange");
+                continue;
+            }
+
+            var blob=await response.blob();
+            var url=URL.createObjectURL(blob);
+            var a=document.createElement("a");
+            a.href=url;
+            a.download=filePath.substring(GH_FOLDER.length+1).split("/").pop();
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+            fileBerhasil.push(filePath.substring(GH_FOLDER.length+1));
+            simpanSesi();
+
+            document.querySelector(".status").textContent="● "+(j+1)+" / "+files.length;
+
+            // Memberi jeda kecil agar browser tidak memblokir semua download.
+            await new Promise(function(resolve){setTimeout(resolve,180);});
+        }
+
+        document.querySelector(".status").textContent="● SELESAI";
+        tulisLog("[OK] SEMUA DOWNLOAD SELESAI. Cek folder Download browser.","ok");
+        document.getElementById("hasilFolderBox").style.display="block";
+
+    }catch(e){
+        if(e && e.name==="AbortError"){
+            tulisLog("[INFO] Pemilihan folder dibatalkan.","orange");
+            return;
+        }
+
+        tulisLog("[ERROR] "+e.message,"orange");
+        document.querySelector(".status").textContent="● ERROR";
+    }finally{
+        downloadSedangBerjalan=false;
+    }
+}
+
+function lihatFolderHasil(){
+    var modal=document.getElementById("hasilModal");
+    var pathBox=document.getElementById("hasilModalPath");
+    var jumlah=document.getElementById("jumlahFileBerhasil");
+    var ringkas=document.getElementById("hasilFileRingkas");
+
+    if(!modal){ return; }
+
+    if(pathBox){
+        pathBox.textContent=(folderNama ? folderNama+"\\locales" : "Lokasi Download browser");
+    }
+    if(jumlah){
+        jumlah.textContent=String(fileBerhasil.length);
+    }
+    if(ringkas){
+        ringkas.innerHTML="";
+        if(fileBerhasil.length){
+            for(var i=0;i<fileBerhasil.length;i++){
+                var item=document.createElement("div");
+                item.className="hasil-file-item";
+                item.style.textAlign="center";
+                item.textContent=fileBerhasil[i];
+                ringkas.appendChild(item);
+            }
+        }else{
+            ringkas.textContent="Tidak ada file yang berhasil didownload.";
+        }
+    }
+
+    modal.style.display="flex";
+}
+
+function tutupHasilModal(){
+    document.getElementById("hasilModal").style.display="none";
+}
+
+
+
+function simpanSesi(){
+    try{
+        sessionStorage.setItem("gfm_log",document.getElementById("log").innerHTML);
+        sessionStorage.setItem("gfm_fileBerhasil",JSON.stringify(fileBerhasil));
+        sessionStorage.setItem("gfm_folderNama",folderNama || "");
+    }catch(e){}
+}
+
+function pulihkanSesi(){
+    try{
+        var savedLog=sessionStorage.getItem("gfm_log");
+        var savedFiles=sessionStorage.getItem("gfm_fileBerhasil");
+        var savedFolder=sessionStorage.getItem("gfm_folderNama");
+
+        if(savedLog){
+            document.getElementById("log").innerHTML=savedLog;
+            document.getElementById("log").scrollTop=document.getElementById("log").scrollHeight;
+        }
+        if(savedFiles){
+            fileBerhasil=JSON.parse(savedFiles) || [];
+        }
+        if(savedFolder){
+            folderNama=savedFolder;
+            tampilkanFolder(folderNama);
+            document.getElementById("hasilFolderBox").style.display =
+                fileBerhasil.length ? "block" : "none";
+        }
+    }catch(e){}
+}
+
+function refreshApp(){
+    // REFRESH sengaja tetap menjadi satu-satunya cara untuk menghapus tampilan sesi.
+    try{ sessionStorage.clear(); }catch(e){}
+    location.reload();
+}
+
+window.addEventListener("load",function(){
+    pulihkanSesi();
+});
+</script>
+
+
+<!-- MODAL HASIL DOWNLOAD -->
+<div id="hasilModal" class="hasil-modal" style="display:none;">
+    <div class="hasil-modal-box">
+        <div class="hasil-modal-icon">✅</div>
+        <div class="hasil-modal-title">DOWNLOAD SELESAI</div>
+        <div class="hasil-modal-subtitle">Hasil download dari folder GitHub:</div>
+
+        <div class="hasil-modal-path" id="hasilModalPath">-</div>
+
+        <div class="hasil-modal-location">
+            <span>📊</span>
+            <strong id="jumlahFileBerhasil">0</strong>
+            <span>file berhasil didownload</span>
+        </div>
+
+        <div style="
+            margin-top:14px;
+            text-align:center;
+            padding:13px;
+            border-radius:12px;
+            background:#030916;
+            border:1px solid #18345c;
+            color:#ffad3d;
+            font-size:12px;
+            font-weight:bold;
+        ">
+            FILE YANG BERHASIL DIDOWNLOAD
+        </div>
+
+        <div id="hasilFileRingkas" style="
+            margin-top:8px;
+            text-align:center;
+            padding:12px;
+            border-radius:12px;
+            background:#030916;
+            border:1px solid #18345c;
+            color:#6cffc4;
+            font-family:Consolas,monospace;
+            font-size:11px;
+            line-height:1.7;
+            max-height:145px;
+            overflow:auto;
+        "></div>
+
+        <div class="hasil-modal-actions">
+            <button class="btn-orange" onclick="tutupHasilModal()">OK</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL KONFIRMASI -->
+<div id="confirmModal" class="confirm-modal" style="display:none;">
+    <div class="confirm-box">
+        <div class="confirm-icon">⚠️</div>
+        <div class="confirm-title">FILE / FOLDER SUDAH ADA</div>
+        <div class="confirm-text">
+            Ditemukan file atau folder dengan nama yang sama di tujuan.
+            Apakah Anda ingin melanjutkan dan mengganti file yang sama?
+        </div>
+        <div class="confirm-path" id="confirmPath">-</div>
+        <div class="confirm-actions">
+            <button class="btn-navy" onclick="jawabKonfirmasi(false)">BATAL</button>
+            <button class="btn-orange" onclick="jawabKonfirmasi(true)">LANJUTKAN</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
